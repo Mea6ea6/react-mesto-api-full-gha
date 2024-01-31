@@ -3,7 +3,7 @@ const allowedCors = [
   'http://domainigor.students.nomoredomainsmonster.ru',
   'http://localhost:3000',
 ];
-const corsMiddleware = ((req, res, next) => {
+const corsMiddleware = (req, res, next) => {
   const { origin } = req.headers;
   const { method } = req;
   const DEFAULT_ALLOWED_METHODS = 'GET,HEAD,PUT,PATCH,POST,DELETE';
@@ -18,6 +18,6 @@ const corsMiddleware = ((req, res, next) => {
     }
   }
   return next();
-});
+};
 
 module.exports = { corsMiddleware };
