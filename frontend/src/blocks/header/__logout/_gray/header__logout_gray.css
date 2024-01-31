@@ -1,0 +1,7 @@
+.header__logout_gray {
+    color: #A9A9A9;
+}
+.header__logout_gray:hover {
+    opacity: 1;
+    color: var(--white);
+}

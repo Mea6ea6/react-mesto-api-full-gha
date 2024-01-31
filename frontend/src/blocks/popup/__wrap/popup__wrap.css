@@ -1,0 +1,16 @@
+.popup__wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 32px;
+    text-align: center;
+    box-sizing: border-box;
+    padding: 24px 0;
+}
+@media screen and (max-width: 599px) {
+    .popup__wrap {
+        gap: 40px;
+        padding: 14px 0;
+    }
+}

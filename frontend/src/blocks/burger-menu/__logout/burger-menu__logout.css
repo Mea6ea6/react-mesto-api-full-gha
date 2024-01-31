@@ -1,0 +1,15 @@
+.burger-menu__logout {
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 22px;
+    color: #A9A9A9;
+    transition: var(--transition);
+    text-decoration: none;
+    padding: 0;
+    background: transparent;
+    border: none;
+}
+.burger-menu__logout:hover {
+    cursor: pointer;
+    color: var(--white);
+}

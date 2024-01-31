@@ -1,0 +1,15 @@
+.header__burger-layer {
+    width: 24px;
+    height: 3px;
+    background-color: var(--white);
+    transition: var(--transition);
+    position: absolute;
+    left: 10%;
+    top: 47%;
+}
+.header__burger-layer:nth-child(1) {
+    transform: translateY(-9px);
+}
+.header__burger-layer:nth-child(3) {
+    transform: translateY(9px);
+}

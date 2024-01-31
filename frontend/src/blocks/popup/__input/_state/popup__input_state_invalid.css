@@ -1,0 +1,9 @@
+.popup__input_state_invalid {
+    border-bottom: 1px solid var(--red);
+}
+.popup__input_state_invalid:hover {
+    border-bottom: 1px solid var(--red);
+}
+.popup__input_state_invalid:focus {
+    border-bottom: 1px solid var(--red);
+}

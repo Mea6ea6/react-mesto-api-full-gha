@@ -1,0 +1,12 @@
+:root {
+    --black: #000;
+    --white: #FFF;
+    --gray: #545454;
+    --red: #FF0000;
+    --width: 100%;
+    --transition: all 0.3s;
+    --opacity-5: 0.5;
+    --opacity-6: 0.6;
+    --opacity-8: 0.8;
+    --padding: 0 19px;
+}

@@ -1,0 +1,22 @@
+.sign__input {
+    color: var(--white);
+    font-size: 14px;
+    font-weight: 500;
+    line-height: normal;
+    width: 358px;
+    height: 27px;
+    background: transparent;
+    outline: none;
+    border: none;
+    border-bottom: 2px solid #CCCCCC;
+}
+.sign__input::placeholder {
+    font-size: 14px;
+    font-weight: 500;
+    line-height: normal;
+}
+@media screen and (max-width: 599px) {
+    .sign__input {
+        width: 260px;
+    }
+}

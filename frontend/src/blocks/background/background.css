@@ -1,0 +1,4 @@
+.background {
+    background: var(--black);
+    width: var(--width);
+}

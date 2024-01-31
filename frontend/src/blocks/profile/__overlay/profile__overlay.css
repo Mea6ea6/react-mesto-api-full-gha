@@ -1,0 +1,35 @@
+.profile__overlay {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    align-self: flex-start;
+    cursor: pointer;
+    position: relative;
+    border-radius: 50%;
+    overflow: hidden;
+}
+.profile__overlay::after {
+    content: "";
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    background: var(--black);
+    opacity: 0;
+    position: absolute;
+    top: 0%;
+    right: 0%;
+    z-index: 2;
+    background-image: url(../../../images/profile/__big-pen-icon.svg);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: auto;
+    transition: var(--transition);
+}
+.profile__overlay:hover::after {
+    opacity: var(--opacity-8);
+}
+@media screen and (max-width: 599px) {
+    .profile__overlay {
+        align-self: auto;
+    }
+}

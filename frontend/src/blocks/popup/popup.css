@@ -1,0 +1,15 @@
+.popup {
+    background: #00000080;
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: all .3s;
+    cursor: pointer;
+}

@@ -1,0 +1,9 @@
+.header__burger_open .header__burger-layer:nth-child(1) {
+    transform: translateY(0) rotate(45deg);
+}
+.header__burger_open .header__burger-layer:nth-child(2) {
+    opacity: 0;
+}
+.header__burger_open .header__burger-layer:nth-child(3) {
+    transform: translateY(0) rotate(-45deg);
+}

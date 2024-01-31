@@ -1,0 +1,10 @@
+.profile__name-wrapp {
+    display: flex;
+    gap: 18px;
+    position: relative;
+}
+@media screen and (max-width: 599px) {
+    .profile__name-wrapp {
+        display: block;
+    }
+}

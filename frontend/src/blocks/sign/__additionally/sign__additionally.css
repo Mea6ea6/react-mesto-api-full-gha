@@ -1,0 +1,11 @@
+.sign__additionally {
+    font-size: 14px;
+    font-weight: 400;
+    line-height: normal;
+    margin: 15px 0 0;
+}
+@media screen and (max-width: 599px) {
+    .sign__additionally {
+        margin: 20px 0 0;
+    }
+}

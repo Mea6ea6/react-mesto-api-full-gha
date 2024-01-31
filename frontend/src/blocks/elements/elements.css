@@ -1,0 +1,17 @@
+.elements {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, 282px);
+    gap: 20px 17px;
+    box-sizing: border-box;
+}
+@media screen and (max-width: 899px) {
+    .elements {
+        gap: 16px;
+    }
+}
+@media screen and (max-width: 599px) {
+    .elements {
+        padding: var(--padding);
+    }
+}
