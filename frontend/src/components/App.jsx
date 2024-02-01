@@ -28,42 +28,50 @@ function App() {
   const [isPopupWithDeleteOpen, setIsPopupWithDeleteOpen] = useState(false);
   const [isPopupInfoToolTipOpen, setIsPopupInfoToolTipOpen] = useState(false);
   const [isUserLoggedIn, setIsUserLoggedIn] = useState(false);
+  const [userEmail, setUserEmail] = useState(' ');
   const [isSuccess, setIsSuccess] = useState(false);
   const navigate = useNavigate();
 
   // api ↓
-  useEffect(() => {
-    Promise.all([api.getUserData(), api.getCardData()])
-      .then(([userData, cardData]) => {
-        setCurrentUser(userData);
-        setCards(cardData);
-      })
-      .catch((err) => console.log(err));
-  }, []);
-
   useEffect(() => {
     const token = localStorage.getItem("jwt");
     if (token) {
       autoLogIn(token);
     }
   }, []);
+  
+  useEffect(() => {
+    if (isUserLoggedIn) {
+      Promise.all([api.getUserData(), api.getCardData()])
+        .then(([userData, cardData]) => {
+          setCurrentUser(userData);
+          // setUserEmail(userData.user.email);
+          setCards(cardData);
+        })
+        .catch((err) => console.log(err));
+    }
+  }, [isUserLoggedIn]);
 
   // functions ↓
   function autoLogIn(jwt) {
     return auth
       .checkToken(jwt)
-      .then(() => {
-        if (jwt) {
+      .then((res) => {
+        if (res) {
           setIsUserLoggedIn(true);
-          navigate("/");
+          setUserEmail(res.email);
+          navigate("/", { replace: true });
+        } else {
+          setIsUserLoggedIn(false);
         }
       })
       .catch((err) => console.log(err));
   }
   function handleLogOut() {
-    localStorage.removeItem("jwt");
-    localStorage.removeItem("email");
     setIsUserLoggedIn(false);
+    setUserEmail(' ');
+    localStorage.removeItem("jwt");
+    navigate("/signin", { replace: true });
   }
   function handleRegisterSubmit(email, password) {
     return auth
@@ -72,7 +80,7 @@ function App() {
         if (res.data) {
           setIsPopupInfoToolTipOpen(true);
           setIsSuccess(true);
-          navigate("/signin");
+          navigate("/signin", { replace: true });
         }
       })
       .catch((err) => {
@@ -85,13 +93,10 @@ function App() {
     return auth
       .authorize(email, password)
       .then((res) => {
-        if (!res) throw new Error("Error");
-        if (res.token) {
-          localStorage.setItem("jwt", res.token);
-          localStorage.setItem("email", email);
-          setIsUserLoggedIn(true);
-          navigate("/");
-        }
+        localStorage.setItem("jwt", res.token);
+        setIsUserLoggedIn(true);
+        setUserEmail(email);
+        navigate('/', { replace: true });
       })
       .catch((err) => console.log(err));
   }
@@ -184,6 +189,7 @@ function App() {
             isUserLoggedIn ? (
               <ProtectedRouteElement
                 loggedIn={isUserLoggedIn}
+                email={userEmail}
                 onLogOut={handleLogOut}
                 cards={cards}
                 onCardClick={handleCardClick}

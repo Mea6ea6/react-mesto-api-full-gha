@@ -1,18 +1,21 @@
 class Api {
-  constructor(config) {
-    this._url = config.url;
-    this._headers = config.headers;
+  constructor(options) {
+    this._url = options.url;
+    this._headers = options.headers;
   }
 
   #onResponse(res) {
-    return res.ok
-      ? res.json()
-      : res.json().then((errData) => Promise.reject(errData));
+    if (res.ok) {
+      return res.json();
+    } else {
+      return res.json().then((errData) => Promise.reject(errData));
+    }
   }
 
   getCardData() {
     return fetch(`${this._url}/cards`, {
       headers: this._headers,
+      credentials: 'include',
     }).then(this.#onResponse);
   }
 
@@ -20,6 +23,7 @@ class Api {
     return fetch(`${this._url}/cards/${cardId}/likes`, {
       method: isLiked ? "DELETE" : "PUT",
       headers: this._headers,
+      credentials: 'include',
     }).then(this.#onResponse);
   }
 
@@ -27,6 +31,7 @@ class Api {
     return fetch(`${this._url}/cards/${cardId}`, {
       method: "DELETE",
       headers: this._headers,
+      credentials: 'include',
     }).then(this.#onResponse);
   }
 
@@ -34,6 +39,7 @@ class Api {
     return fetch(`${this._url}/cards`, {
       method: "POST",
       headers: this._headers,
+      credentials: 'include',
       body: JSON.stringify({
         name: cardTitle, 
         link: cardLink
@@ -44,6 +50,7 @@ class Api {
   getUserData() {
     return fetch(`${this._url}/users/me`, {
       headers: this._headers,
+      credentials: 'include',
     }).then(this.#onResponse);
   }
 
@@ -51,6 +58,7 @@ class Api {
     return fetch(`${this._url}/users/me`, {
       method: "PATCH",
       headers: this._headers,
+      credentials: 'include',
       body: JSON.stringify({
         name: userName,
         about: userAbout
@@ -62,6 +70,7 @@ class Api {
     return fetch(`${this._url}/users/me/avatar`, {
       method: "PATCH",
       headers: this._headers,
+      credentials: 'include',
       body: JSON.stringify({
         avatar: link.avatar
       }),
@@ -73,7 +82,8 @@ const apiConfig = {
   url: 'https://api.domainigor.students.nomoredomainsmonster.ru',
   credentials: 'include',
   headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${localStorage.getItem('jwt')}`,
   }
 }
 

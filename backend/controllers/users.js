@@ -109,7 +109,9 @@ const login = async (req, res, next) => {
       return next(new AuthorizationError('Неправильные почта или пароль'));
     }
     const token = jwt.sign({ _id: user._id }, NODE_ENV === 'production' ? JWT_SECRET : 'dev-secret', { expiresIn: '7d' });
-    return res.cookie('jwt', token, { httpOnly: true, maxAge: 7 * 24 * 60 * 60 * 1000 }).send({ message: 'Успешная авторизация' });
+    return res.cookie('jwt', token, {
+      httpOnly: true, maxAge: 7 * 24 * 60 * 60 * 1000, secure: true, sameSite: 'None',
+    }).send({ message: 'Успешная авторизация' });
   } catch (error) {
     return next(new InternalServerError('Ошибка со стороны сервера'));
   }

@@ -1,7 +1,11 @@
 const baseUrl = "https://api.domainigor.students.nomoredomainsmonster.ru";
 
 function getResponse(res) {
-  return res.ok ? res.json() : res.json().then((errData) => Promise.reject(errData));
+  if (res.ok) {
+    return res.json();
+  } else {
+    return res.json().then((errData) => Promise.reject(errData));
+  }
 }
 
 export const register = (email, password) => {
@@ -16,14 +20,16 @@ export const register = (email, password) => {
     }),
   })
     .then(getResponse)
-    .then((res) => {
-      return res;
-    })
+    .catch(error => {
+      console.error('Ошибка при получении данных:', error);
+      return Promise.reject(error);
+    });
 };
 
 export const authorize = (email, password) => {
   return fetch(`${baseUrl}/signin`, {
     method: 'POST',
+    credentials: 'include',
     headers: {
         "Content-Type": "application/json" 
     },
@@ -32,16 +38,25 @@ export const authorize = (email, password) => {
       email: email
     }),
   })
-  .then(getResponse)
+    .then(getResponse)
+    .catch(error => {
+      console.error('Ошибка при получении данных:', error);
+      return Promise.reject(error);
+    });
 };
 
 export const checkToken = (token) => {
     return fetch(`${baseUrl}/users/me`, {
       method: 'GET',
+      credentials: 'include',
       headers: {
         "Content-Type": "application/json",
         "Authorization": `Bearer ${token}`
-    }
+      },
     })
-    .then(getResponse)
+      .then(getResponse)
+      .catch(error => {
+        console.error('Ошибка при получении данных:', error);
+        return Promise.reject(error);
+      });
   };

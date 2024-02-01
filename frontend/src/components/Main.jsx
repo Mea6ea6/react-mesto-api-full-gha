@@ -8,6 +8,7 @@ import Card from "./Card.jsx";
 function Main(props) {
   const {
     onLogOut,
+    email,
     cards,
     onCardClick,
     onCardLike,
@@ -27,7 +28,7 @@ function Main(props) {
     <>
       <Header isOpen={isOpen} onLogOut={onLogOut}>
         <nav className="header__auth">
-          <p className="header__email">{localStorage.getItem('email')}</p>
+          <p className="header__email">{email}</p>
           <NavLink to="/signin" className="header__logout header__logout_gray" onClick={onLogOut}>Выйти</NavLink>
         </nav>
         <button
