@@ -1,3 +1,4 @@
+/* eslint-disable import/no-extraneous-dependencies */
 /* eslint-disable no-console */
 require('dotenv').config();
 const express = require('express');
@@ -5,9 +6,11 @@ const cookieParser = require('cookie-parser');
 const mongoose = require('mongoose');
 const helmet = require('helmet');
 const { errors } = require('celebrate');
-const corsMiddleware = require('./middlewares/cors');
+const cors = require('cors');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 const router = require('./routes');
+
+const app = express();
 
 const { login, createUser } = require('./controllers/users');
 const {
@@ -16,11 +19,10 @@ const {
 
 const NotFoundError = require('./errors/NotFoundError');
 
-const { PORT = 3000, DB_URL = 'mongodb://127.0.0.1:27017/mestodb' } = process.env;
-const app = express();
-mongoose.connect(DB_URL);
+app.use(cors({ credentials: true, origin: ['https://domainigor.students.nomoredomainsmonster.ru', 'http://domainigor.students.nomoredomainsmonster.ru', 'https://api.domainigor.students.nomoredomainsmonster.ru', 'http://api.domainigor.students.nomoredomainsmonster.ru', 'http://localhost:3000'] }));
 
-app.use(corsMiddleware());
+const { PORT = 3000, DB_URL = 'mongodb://127.0.0.1:27017/mestodb' } = process.env;
+mongoose.connect(DB_URL);
 
 app.use(helmet());
 app.use(express.json());

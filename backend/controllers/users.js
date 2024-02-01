@@ -7,7 +7,7 @@ const DublicateError = require('../errors/DublicateError');
 const InternalServerError = require('../errors/InternalServerError');
 const NotFoundError = require('../errors/NotFoundError');
 
-const { JWT_SECRET } = process.env;
+const { NODE_ENV, JWT_SECRET } = process.env;
 
 const getUsers = async (req, res, next) => {
   User.find({})
@@ -108,9 +108,8 @@ const login = async (req, res, next) => {
     if (!isPasswordValid) {
       return next(new AuthorizationError('Неправильные почта или пароль'));
     }
-    const token = jwt.sign({ _id: user._id }, process.env.NODE_ENV === 'production' ? JWT_SECRET : 'dev-secret', { expiresIn: '7d' });
-    res.cookie('token', token, { httpOnly: true, maxAge: 7 * 24 * 60 * 60 * 1000 });
-    return res.send({ message: 'Успешная авторизация' });
+    const token = jwt.sign({ _id: user._id }, NODE_ENV === 'production' ? JWT_SECRET : 'dev-secret', { expiresIn: '7d' });
+    return res.cookie('jwt', token, { httpOnly: true, maxAge: 7 * 24 * 60 * 60 * 1000 }).send({ message: 'Успешная авторизация' });
   } catch (error) {
     return next(new InternalServerError('Ошибка со стороны сервера'));
   }
