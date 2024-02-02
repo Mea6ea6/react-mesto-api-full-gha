@@ -51,7 +51,7 @@ const likeCard = (req, res, next) => {
   Card.findByIdAndUpdate(cardId, { $addToSet: { likes: req.user._id } }, { new: true })
     .orFail(new Error('NotValidId'))
     .then((card) => {
-      res.send({ message: `Карточке с ID: ${card._id} поставлен лайк` });
+      res.send({ card });
     })
     .catch((error) => {
       if (error.message === 'NotValidId') {
@@ -69,7 +69,7 @@ const dislikeCard = (req, res, next) => {
   Card.findByIdAndUpdate(cardId, { $pull: { likes: req.user._id } }, { new: true })
     .orFail(new Error('NotValidId'))
     .then((card) => {
-      res.send({ message: `У карточке с ID: ${card._id} убран лайк` });
+      res.send({ card });
     })
     .catch((error) => {
       if (error.message === 'NotValidId') {

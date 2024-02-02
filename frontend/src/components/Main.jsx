@@ -52,13 +52,13 @@ function Main(props) {
           >
             <img
               className="profile__avatar"
-              src={currentUser?.avatar}
+              src={currentUser.user?.avatar}
               alt="аватар"
             />
           </div>
           <div className="profile__info">
             <div className="profile__name-wrapp">
-              <h1 className="profile__name">{currentUser?.name}</h1>
+              <h1 className="profile__name">{currentUser.user?.name}</h1>
               <button
                 className="profile__edit-button"
                 aria-label="Редактировать"
@@ -66,7 +66,7 @@ function Main(props) {
                 onClick={onEditProfile}
               />
             </div>
-            <p className="profile__description">{currentUser?.about}</p>
+            <p className="profile__description">{currentUser.user?.about}</p>
           </div>
           <button
             className="profile__add-button"

@@ -6,8 +6,8 @@ function Card(props) {
   const {card, onCardClick, onCardLike, onCardDelete} = props;
   const {link, name, likes} = card;
   const currentUser = useContext(CurrentUserContext);
-  const isOwn = card.owner?._id === currentUser?._id;
-  const isLiked = card?.likes.some((i) => i?._id === currentUser?._id);
+  const isOwn = card?.owner === currentUser.user?._id;
+  const isLiked = card.likes?.some((i) => i === currentUser.user?._id);
 
   function handleClick() {
     const data = { link, name };
@@ -40,7 +40,7 @@ function Card(props) {
             type="button"
             onClick={handleLikeClick}
           />
-          <p className="element__counter">{likes.length}</p>
+          <p className="element__counter">{likes?.length}</p>
         </div>
       </div>
     </article>

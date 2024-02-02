@@ -45,7 +45,7 @@ function App() {
       Promise.all([api.getUserData(), api.getCardData()])
         .then(([userData, cardData]) => {
           setCurrentUser(userData);
-          // setUserEmail(userData.user.email);
+          setUserEmail(userData.user.email);
           setCards(cardData);
         })
         .catch((err) => console.log(err));
@@ -77,15 +77,14 @@ function App() {
     return auth
       .register(email, password)
       .then((res) => {
-        if (res.data) {
-          setIsPopupInfoToolTipOpen(true);
+        if (res) {
           setIsSuccess(true);
-          navigate("/signin", { replace: true });
+          setIsPopupInfoToolTipOpen(true);
         }
       })
       .catch((err) => {
-        setIsPopupInfoToolTipOpen(true);
         setIsSuccess(false);
+        setIsPopupInfoToolTipOpen(true);
         console.log(err);
       });
   }
@@ -98,7 +97,11 @@ function App() {
         setUserEmail(email);
         navigate('/', { replace: true });
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        setIsSuccess(false);
+        setIsPopupInfoToolTipOpen(true);
+        console.log(err);
+      });
   }
 
   function handleCardClick(card) {
@@ -127,13 +130,12 @@ function App() {
   }
 
   function handleCardLike(card) {
-    const isLiked = card.likes?.some((i) => i?._id === currentUser?._id);
+    const isLiked = card.likes?.some((i) => i === currentUser.user?._id);
     api
       .changeCardLikeStatus(card._id, isLiked)
       .then((newCard) => {
-        setCards((state) =>
-          state.map((c) => (c._id === card._id ? newCard : c))
-        );
+        const updateCard = newCard.card;
+        setCards((state) => state.map((c) => c._id === card._id ? updateCard : c));
       })
       .catch((err) => console.log(err));
   }
