@@ -1,10 +1,10 @@
 # Проектная работа
 
-__Название:__ «Express Mesto Gha»  
+__Название:__ «Mesto»  
 
 ------
 
-__Директории и файлы__  
+__Полезное:__  
 
 - IP: 130.193.39.20
 - domain (frontend): http://domainigor.students.nomoredomainsmonster.ru
