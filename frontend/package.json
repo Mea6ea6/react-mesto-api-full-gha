@@ -3,7 +3,7 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
-  "homepage": "https://mea6ea6.github.io/mesto-react/",
+  "homepage": "https://mea6ea6.github.io/react-mesto/",
   "scripts": {
     "dev": "vite",
     "build": "vite build",

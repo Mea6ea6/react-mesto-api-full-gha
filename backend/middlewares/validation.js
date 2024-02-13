@@ -32,7 +32,7 @@ const checkUserIdValid = celebrate({
       .messages({
         'string.length': 'Ошибка валидации ID пользователя',
         'string.alphanum': 'Ошибка валидации ID пользователя',
-        'any.required': 'Поле является обязвтельным',
+        'any.required': 'Поле является обязательным',
       }),
   }),
 });
@@ -56,7 +56,7 @@ const checkCardIdValid = celebrate({
       .messages({
         'string.length': 'Ошибка валидации ID карточки',
         'string.alphanum': 'Ошибка валидации ID карточки',
-        'any.required': 'Поле является обязвтельным',
+        'any.required': 'Поле является обязательным',
       }),
   }),
 });
